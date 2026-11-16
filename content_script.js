@@ -11,7 +11,6 @@
   // ==========================================
 
   const CONFIG = {
-    brand: "MYSTERIOUS",
     buttonText: "Copy",
     successText: "✓ Copied!",
     errorText: "Copy failed"
@@ -78,118 +77,6 @@
     style.textContent = css;
 
     (document.head || document.documentElement).appendChild(style);
-  }
-
-  // ==========================================
-  // PREMIUM MYSTERIOUS BRAND SIGNATURE
-  // ==========================================
-
-  function addBrandSignature() {
-    if (document.getElementById("mysterious-brand-host")) return;
-
-    const host = document.createElement("div");
-    host.id = "mysterious-brand-host";
-
-    const shadow = host.attachShadow({ mode: "open" });
-
-    const style = document.createElement("style");
-
-    style.textContent = `
-      :host {
-        all: initial;
-      }
-
-      .brand {
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        z-index: 2147483647;
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        padding: 10px 15px;
-        border: 1px solid rgba(96,165,250,.28);
-        border-radius: 12px;
-        background: rgba(10,15,30,.88);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow: 0 8px 30px rgba(0,0,0,.22);
-        color: #e2e8f0;
-        font-family: system-ui,sans-serif;
-        font-size: 11px;
-        letter-spacing: .3px;
-        animation: appear .6s ease both;
-        pointer-events: none;
-      }
-
-      .symbol {
-        color: #60a5fa;
-        font-size: 16px;
-        text-shadow: 0 0 12px rgba(96,165,250,.8);
-      }
-
-      .content {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      .label {
-        color: #94a3b8;
-        font-size: 9px;
-        letter-spacing: 1.2px;
-        text-transform: uppercase;
-      }
-
-      .name {
-        color: #fff;
-        font-size: 11px;
-        font-weight: 750;
-      }
-
-      @keyframes appear {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @media (max-width:600px) {
-        .brand {
-          right: 10px;
-          bottom: 10px;
-          padding: 8px 11px;
-        }
-      }
-    `;
-
-    const badge = document.createElement("div");
-    badge.className = "brand";
-
-    const symbol = document.createElement("span");
-    symbol.className = "symbol";
-    symbol.textContent = "✦";
-
-    const content = document.createElement("div");
-    content.className = "content";
-
-    const label = document.createElement("span");
-    label.className = "label";
-    label.textContent = "Developed by";
-
-    const name = document.createElement("span");
-    name.className = "name";
-    name.textContent = CONFIG.brand;
-
-    content.append(label, name);
-    badge.append(symbol, content);
-    shadow.append(style, badge);
-
-    (document.body || document.documentElement).appendChild(host);
   }
 
   // --------------------------------
@@ -312,15 +199,10 @@
 
   function initialize() {
     addStyles();
-    addBrandSignature();
     addCopyButtons();
 
     const observer = new MutationObserver(() => {
       addCopyButtons();
-
-      if (!document.getElementById("mysterious-brand-host")) {
-        addBrandSignature();
-      }
     });
 
     observer.observe(document.documentElement, {
