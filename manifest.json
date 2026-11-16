@@ -1,0 +1,25 @@
+
+{
+  "manifest_version": 3,
+  "name": "Mysterious | CodeChef Copy",
+  "version": "2.1.0",
+  "description": "A premium CodeChef extension to copy sample test cases instantly.",
+  "permissions": [
+    "clipboardWrite"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.codechef.com/*",
+        "https://codechef.com/*"
+      ],
+      "js": [
+        "content_script.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
