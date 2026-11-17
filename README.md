@@ -47,12 +47,6 @@ Built for programmers who value speed, simplicity, and productivity.
 
 ## 📥 INSTALLATION
 
-### Firefox
-
-Install from the official Firefox Add-ons store:
-
-[![Get Firefox Add-on](https://img.shields.io/badge/GET_ADD--ON-FIREFOX-FF7139?style=for-the-badge&logo=firefox)](https://addons.mozilla.org/en-US/firefox/addon/codechef-copy/)
-
 ### Chrome / Brave / Edge
 
 1. Download this repository as a ZIP.
