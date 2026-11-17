@@ -16,9 +16,9 @@
     errorText: "Copy failed"
   };
 
-  // --------------------------------
+  // ==========================================
   // PREMIUM COPY BUTTON STYLING
-  // --------------------------------
+  // ==========================================
 
   const css = `
     .copyBtn {
@@ -60,7 +60,6 @@
     .copyBtn.cc-success {
       background: linear-gradient(135deg,#059669,#047857);
       border-color: rgba(52,211,153,.4);
-      box-shadow: 0 4px 14px rgba(5,150,105,.2);
     }
 
     .copyBtn.cc-error {
@@ -79,16 +78,24 @@
     (document.head || document.documentElement).appendChild(style);
   }
 
-  // --------------------------------
-  // COPY SAMPLE TEST CASES
-  // --------------------------------
+  // ==========================================
+  // COPY FUNCTIONALITY
+  // ==========================================
 
   async function copyText(text) {
     try {
-      await navigator.clipboard.writeText(text);
-      return true;
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
     } catch (error) {
-      const textarea = document.createElement("textarea");
+      // Try fallback.
+    }
+
+    let textarea;
+
+    try {
+      textarea = document.createElement("textarea");
       textarea.value = text;
       textarea.style.position = "fixed";
       textarea.style.left = "-9999px";
@@ -97,22 +104,23 @@
       document.body.appendChild(textarea);
       textarea.select();
 
-      const success = document.execCommand("copy");
-      textarea.remove();
-
-      return success;
+      return document.execCommand("copy");
+    } catch (error) {
+      return false;
+    } finally {
+      textarea?.remove();
     }
   }
 
-  // --------------------------------
+  // ==========================================
   // CREATE PREMIUM COPY BUTTONS
-  // --------------------------------
+  // ==========================================
 
   function addCopyButtons() {
     document.querySelectorAll("pre").forEach((test) => {
       if (test.dataset.ccCopyAdded) return;
 
-      test.dataset.ccCopyAdded = "true";
+      if (!test.parentNode) return;
 
       const button = document.createElement("button");
       button.className = "copyBtn";
@@ -141,12 +149,13 @@
       });
 
       test.parentNode.insertBefore(button, test);
+      test.dataset.ccCopyAdded = "true";
     });
   }
 
-  // --------------------------------
+  // ==========================================
   // IDENTIFY CODE EDITORS
-  // --------------------------------
+  // ==========================================
 
   function isEditor(element) {
     if (!(element instanceof Element)) return false;
@@ -167,9 +176,9 @@
     ].join(","));
   }
 
-  // --------------------------------
+  // ==========================================
   // ORIGINAL PASTE EVENT HANDLING
-  // --------------------------------
+  // ==========================================
 
   document.addEventListener("paste", (event) => {
     if (isEditor(event.target)) {
@@ -193,9 +202,9 @@
     }
   }, true);
 
-  // --------------------------------
-  // AUTOMATIC INITIALIZATION
-  // --------------------------------
+  // ==========================================
+  // AUTOMATIC DYNAMIC CONTENT DETECTION
+  // ==========================================
 
   function initialize() {
     addStyles();

@@ -1,11 +1,14 @@
 
 {
   "manifest_version": 3,
-  "name": "Mysterious | CodeChef Copy",
-  "version": "2.1.0",
-  "description": "A premium CodeChef extension to copy sample test cases instantly.",
+  "name": "Mysterious | Universal Copy",
+  "version": "2.3.0",
+  "description": "Premium one-click copying for code blocks across websites.",
   "permissions": [
     "clipboardWrite"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "action": {
     "default_popup": "popup.html"
@@ -13,13 +16,13 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.codechef.com/*",
-        "https://codechef.com/*"
+        "<all_urls>"
       ],
       "js": [
         "content_script.js"
       ],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "all_frames": true
     }
   ]
 }
