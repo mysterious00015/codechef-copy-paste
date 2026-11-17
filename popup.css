@@ -11,6 +11,7 @@
 
 :root {
     color-scheme: dark;
+
     --black: #080808;
     --surface: #111010;
     --surface-light: #191313;
@@ -34,6 +35,7 @@ body {
     isolation: isolate;
     padding: 16px;
     overflow: hidden;
+
     background:
         radial-gradient(
             circle at 92% 24%,
@@ -41,10 +43,9 @@ body {
             transparent 38%
         ),
         linear-gradient(145deg, #0C0A0A, #080808 70%);
+
     animation: popupEnter .45s ease both;
 }
-
-/* SUBTLE BACKGROUND GLOW */
 
 .popup::before {
     content: "";
@@ -60,7 +61,9 @@ body {
     z-index: -1;
 }
 
-/* HEADER */
+/* ==========================================
+   HEADER
+   ========================================== */
 
 .topbar {
     display: flex;
@@ -82,18 +85,20 @@ body {
     display: grid;
     place-items: center;
     border-radius: 11px;
+
     background: linear-gradient(145deg, #451015, #1B090B);
     border: 1px solid rgba(241,45,61,.5);
+
     color: #FF4655;
     font-size: 24px;
     font-weight: 900;
+
     box-shadow: 0 4px 18px rgba(180,15,30,.15);
     transition: .3s ease;
 }
 
 .logo:hover {
     transform: rotate(-5deg) scale(1.05);
-    box-shadow: 0 4px 22px rgba(241,45,61,.3);
 }
 
 .brand-info h1 {
@@ -119,11 +124,13 @@ body {
     letter-spacing: 1px;
 }
 
-/* HERO */
+/* ==========================================
+   HERO
+   ========================================== */
 
 .hero {
     position: relative;
-    padding: 20px 0 18px;
+    padding: 20px 0 17px;
     overflow: hidden;
 }
 
@@ -132,9 +139,11 @@ body {
     align-items: center;
     gap: 7px;
     padding: 6px 10px;
+
     border: 1px solid rgba(241,45,61,.2);
     border-radius: 20px;
     background: rgba(120,12,25,.12);
+
     color: #F27A83;
     font-size: 8px;
     letter-spacing: 1.3px;
@@ -146,6 +155,7 @@ body {
     height: 7px;
     border-radius: 50%;
     background: #EF3545;
+
     box-shadow: 0 0 10px rgba(241,45,61,.8);
     animation: pulse 1.8s ease-in-out infinite;
 }
@@ -153,7 +163,7 @@ body {
 .hero-title {
     position: relative;
     z-index: 1;
-    margin-top: 18px;
+    margin-top: 16px;
 }
 
 .hero-title h2 {
@@ -190,17 +200,157 @@ body {
     pointer-events: none;
 }
 
-/* STATUS CARD */
+/* ==========================================
+   PASTE COMPATIBILITY SWITCH
+   ========================================== */
+
+.paste-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 12px;
+    padding: 12px;
+
+    border: 1px solid rgba(241,45,61,.2);
+    border-radius: 12px;
+
+    background: linear-gradient(
+        110deg,
+        rgba(95,13,24,.2),
+        rgba(20,13,14,.9)
+    );
+
+    transition: border-color .25s ease;
+}
+
+.paste-control:hover {
+    border-color: rgba(241,45,61,.4);
+}
+
+.paste-control-info {
+    min-width: 0;
+}
+
+.paste-heading {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.paste-icon {
+    color: var(--red-light);
+    font-size: 14px;
+}
+
+.paste-heading h3 {
+    font-size: 10px;
+    color: #F5EEEE;
+    letter-spacing: .8px;
+}
+
+.paste-control-info p {
+    margin-top: 5px;
+    font-size: 9px;
+    color: #A18D8F;
+}
+
+#pasteState {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#pasteState.enabled {
+    color: #FF626D;
+}
+
+#pasteState.disabled {
+    color: #A99A9B;
+}
+
+#pasteState.state-loading {
+    color: #9C8587;
+}
+
+/* SWITCH */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 43px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.switch-slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    border-radius: 30px;
+
+    background: #393031;
+    border: 1px solid #594044;
+
+    transition: .3s ease;
+}
+
+.switch-slider::before {
+    content: "";
+    position: absolute;
+
+    width: 16px;
+    height: 16px;
+
+    left: 3px;
+    top: 3px;
+
+    border-radius: 50%;
+    background: #D8C9CA;
+
+    transition: .3s ease;
+}
+
+.switch input:checked + .switch-slider {
+    background: #841923;
+    border-color: #F12D3D;
+    box-shadow: 0 0 12px rgba(241,45,61,.2);
+}
+
+.switch input:checked + .switch-slider::before {
+    transform: translateX(19px);
+    background: #FFFFFF;
+}
+
+.switch input:focus-visible + .switch-slider {
+    outline: 2px solid #FF626D;
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   STATUS CARD
+   ========================================== */
 
 .status-card {
     padding: 13px;
     border: 1px solid rgba(241,45,61,.19);
     border-radius: 13px;
+
     background: linear-gradient(
         145deg,
         rgba(35,17,19,.92),
         rgba(16,13,14,.96)
     );
+
     box-shadow: 0 8px 25px rgba(0,0,0,.22);
     transition: border-color .25s ease, transform .25s ease;
 }
@@ -214,8 +364,10 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+
     padding-bottom: 11px;
     border-bottom: 1px solid rgba(255,255,255,.07);
+
     font-size: 11px;
     font-weight: 750;
 }
@@ -253,30 +405,31 @@ body {
     color: #FF515D;
 }
 
-/* FEATURE CARD */
+/* ==========================================
+   FEATURE CARD
+   ========================================== */
 
 .feature {
     display: flex;
     align-items: center;
     gap: 10px;
+
     margin-top: 11px;
     padding: 11px;
+
     border: 1px solid rgba(241,45,61,.16);
     border-radius: 11px;
+
     background: linear-gradient(
         110deg,
         rgba(95,13,24,.23),
         rgba(25,13,15,.7)
     );
+
     transition: all .25s ease;
 }
 
 .feature:hover {
-    background: linear-gradient(
-        110deg,
-        rgba(120,13,26,.32),
-        rgba(30,13,16,.85)
-    );
     border-color: rgba(241,45,61,.35);
 }
 
@@ -286,9 +439,11 @@ body {
     display: grid;
     flex-shrink: 0;
     place-items: center;
+
     border-radius: 9px;
     background: rgba(160,20,35,.2);
     border: 1px solid rgba(241,45,61,.17);
+
     color: #FF5661;
     font-size: 17px;
 }
@@ -319,7 +474,9 @@ body {
     transform: translate(2px, -2px);
 }
 
-/* FOOTER */
+/* ==========================================
+   FOOTER
+   ========================================== */
 
 footer {
     margin-top: 15px;
@@ -329,6 +486,7 @@ footer {
 .footer-line {
     height: 1px;
     margin-bottom: 11px;
+
     background: linear-gradient(
         90deg,
         transparent,
@@ -356,13 +514,16 @@ footer small {
     letter-spacing: 1.8px;
 }
 
-/* SMOOTH ANIMATIONS */
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
 
 @keyframes popupEnter {
     from {
         opacity: 0;
         transform: translateY(7px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -374,13 +535,16 @@ footer small {
         opacity: 1;
         box-shadow: 0 0 9px rgba(241,45,61,.8);
     }
+
     50% {
         opacity: .55;
         box-shadow: 0 0 3px rgba(241,45,61,.3);
     }
 }
 
-/* HIDE SCROLLBAR */
+/* ==========================================
+   HIDE SCROLLBAR
+   ========================================== */
 
 ::-webkit-scrollbar {
     display: none;

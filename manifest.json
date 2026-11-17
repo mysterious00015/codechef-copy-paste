@@ -2,10 +2,11 @@
 {
   "manifest_version": 3,
   "name": "Mysterious | Universal Copy",
-  "version": "2.3.0",
-  "description": "Premium one-click copying for code blocks across websites.",
+  "version": "2.4.0",
+  "description": "Premium one-click code copying with configurable editor compatibility.",
   "permissions": [
-    "clipboardWrite"
+    "clipboardWrite",
+    "storage"
   ],
   "host_permissions": [
     "<all_urls>"

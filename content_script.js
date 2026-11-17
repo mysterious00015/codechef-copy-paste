@@ -17,6 +17,37 @@
   };
 
   // ==========================================
+  // PASTE SWITCH STATE
+  // ==========================================
+
+  let pasteCompatibilityEnabled = false;
+  let pasteSettingsLoaded = false;
+
+  chrome.storage.local.get(
+    { pasteCompatibilityEnabled: true },
+    (result) => {
+      if (chrome.runtime.lastError) return;
+
+      pasteCompatibilityEnabled =
+        result.pasteCompatibilityEnabled;
+
+      pasteSettingsLoaded = true;
+    }
+  );
+
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (
+      area === "local" &&
+      changes.pasteCompatibilityEnabled
+    ) {
+      pasteCompatibilityEnabled =
+        Boolean(changes.pasteCompatibilityEnabled.newValue);
+
+      pasteSettingsLoaded = true;
+    }
+  });
+
+  // ==========================================
   // PREMIUM COPY BUTTON STYLING
   // ==========================================
 
@@ -60,6 +91,7 @@
     .copyBtn.cc-success {
       background: linear-gradient(135deg,#059669,#047857);
       border-color: rgba(52,211,153,.4);
+      box-shadow: 0 4px 14px rgba(5,150,105,.2);
     }
 
     .copyBtn.cc-error {
@@ -79,23 +111,15 @@
   }
 
   // ==========================================
-  // COPY FUNCTIONALITY
+  // COPY SAMPLE TEST CASES
   // ==========================================
 
   async function copyText(text) {
     try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return true;
-      }
+      await navigator.clipboard.writeText(text);
+      return true;
     } catch (error) {
-      // Try fallback.
-    }
-
-    let textarea;
-
-    try {
-      textarea = document.createElement("textarea");
+      const textarea = document.createElement("textarea");
       textarea.value = text;
       textarea.style.position = "fixed";
       textarea.style.left = "-9999px";
@@ -104,11 +128,10 @@
       document.body.appendChild(textarea);
       textarea.select();
 
-      return document.execCommand("copy");
-    } catch (error) {
-      return false;
-    } finally {
-      textarea?.remove();
+      const success = document.execCommand("copy");
+      textarea.remove();
+
+      return success;
     }
   }
 
@@ -178,10 +201,15 @@
 
   // ==========================================
   // ORIGINAL PASTE EVENT HANDLING
+  // CONTROLLED BY POPUP SWITCH
   // ==========================================
 
   document.addEventListener("paste", (event) => {
-    if (isEditor(event.target)) {
+    if (
+      pasteSettingsLoaded &&
+      pasteCompatibilityEnabled &&
+      isEditor(event.target)
+    ) {
       event.stopImmediatePropagation();
     }
   }, true);
@@ -191,19 +219,28 @@
       (event.ctrlKey || event.metaKey) &&
       event.key.toLowerCase() === "v";
 
-    if (pasteShortcut && isEditor(event.target)) {
+    if (
+      pasteSettingsLoaded &&
+      pasteCompatibilityEnabled &&
+      pasteShortcut &&
+      isEditor(event.target)
+    ) {
       event.stopImmediatePropagation();
     }
   }, true);
 
   document.addEventListener("contextmenu", (event) => {
-    if (isEditor(event.target)) {
+    if (
+      pasteSettingsLoaded &&
+      pasteCompatibilityEnabled &&
+      isEditor(event.target)
+    ) {
       event.stopImmediatePropagation();
     }
   }, true);
 
   // ==========================================
-  // AUTOMATIC DYNAMIC CONTENT DETECTION
+  // AUTOMATIC INITIALIZATION
   // ==========================================
 
   function initialize() {

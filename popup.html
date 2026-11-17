@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mysterious | CodeChef Copy</title>
+    <title>Mysterious | Universal Copy</title>
     <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
     <main class="popup">
 
@@ -14,13 +15,14 @@
         <header class="topbar">
             <div class="brand">
                 <div class="logo">M</div>
+
                 <div class="brand-info">
                     <h1>MYSTERIOUS</h1>
-                    <p>CODECHEF COPY</p>
+                    <p>UNIVERSAL COPY</p>
                 </div>
             </div>
 
-            <div class="version">V2.3.0</div>
+            <div class="version">V2.4.0</div>
         </header>
 
         <!-- HERO -->
@@ -36,23 +38,51 @@
             </div>
 
             <p class="description">
-                Your ultimate companion for competitive programming.
+                Your ultimate companion for coding and productivity.
             </p>
 
             <div class="hero-mark">M</div>
         </section>
 
+        <!-- PASTE SETTINGS -->
+        <section class="paste-control">
+            <div class="paste-control-info">
+                <div class="paste-heading">
+                    <span class="paste-icon">✦</span>
+                    <h3>PASTE COMPATIBILITY</h3>
+                </div>
+
+                <p>Control editor event handling</p>
+
+                <span id="pasteState" class="state-loading">
+                    LOADING SETTINGS...
+                </span>
+            </div>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="pasteToggle"
+                    aria-label="Toggle paste compatibility"
+                >
+                <span class="switch-slider"></span>
+            </label>
+        </section>
+
         <!-- STATUS CARD -->
         <section class="status-card">
+
             <div class="section-heading">
-                <div class="heading-icon">✦</div>
+                <span class="heading-icon">✦</span>
+
                 <span>Extension Status</span>
+
                 <span class="active-label">ONLINE</span>
             </div>
 
             <div class="info-row">
                 <span>Platform</span>
-                <strong>CodeChef</strong>
+                <strong>All Supported Sites</strong>
             </div>
 
             <div class="info-row">
@@ -64,25 +94,34 @@
                 <span>Developer</span>
                 <strong>Mysterious</strong>
             </div>
+
         </section>
 
         <!-- FEATURE -->
         <section class="feature">
             <div class="feature-icon">⚡</div>
+
             <div class="feature-content">
                 <h3>ONE-CLICK COPYING</h3>
-                <p>Copy sample test cases instantly.</p>
+                <p>Copy code blocks instantly.</p>
             </div>
+
             <div class="feature-arrow">↗</div>
         </section>
 
         <!-- FOOTER -->
         <footer>
             <div class="footer-line"></div>
-            <p>CRAFTED WITH <span>♥</span> BY MYSTERIOUS</p>
+
+            <p>
+                CRAFTED WITH <span>♥</span> BY MYSTERIOUS
+            </p>
+
             <small>BUILT FOR PROGRAMMERS</small>
         </footer>
 
     </main>
+
+    <script src="popup.js"></script>
 </body>
 </html>
